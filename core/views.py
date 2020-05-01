@@ -10,6 +10,8 @@ from .utils import encrypt_password, create_item_icon, ItemMixins
 from .serializers import ItemSerializer, UserSerializer
 from .permissions import IsOwner
 
+from django.conf import settings
+
 class ItemViewSet(ItemMixins, viewsets.ViewSet):
     """ Item viewset for lists of items, and create item.
     """
@@ -18,6 +20,7 @@ class ItemViewSet(ItemMixins, viewsets.ViewSet):
     serializer_class = ItemSerializer
 
     def lists(self, *args, **kwargs):
+        print(settings.STATIC_URL, 'rul')
         items = Item.objects.filter(user=self.request.user)
         serializer = self.serializer_class(items, many=True)
         return Response(serializer.data, status=200)
