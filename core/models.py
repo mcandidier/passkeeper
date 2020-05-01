@@ -14,6 +14,7 @@ class Item(models.Model):
     password = models.CharField(max_length=200, blank=True) 
     url = models.URLField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    icon = models.ImageField(null=True, blank=True, upload_to='uploads/')
 
     def __str__(self):
         return f'{self.name}'

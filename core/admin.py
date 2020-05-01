@@ -8,11 +8,10 @@ class ConfigAdmin(admin.ModelAdmin):
     list_display = ('user', 'key')
 
 
-
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ['name', 'password', 'decrypt_password']
+    list_display = ['name', 'password', 'raw_password']
 
-    def decrypt_password(self, instance):
+    def raw_password(self, instance):
         password = decrypt_password(instance)
-        return password
+        return password.decode()
