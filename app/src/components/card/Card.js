@@ -1,7 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+
+import { ItemMediaCard } from '../../components';
+
+import {connect} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,21 +18,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardItem() {
+export function CardItem({items}) {
   const classes = useStyles();
 
   function FormRow() {
     return (
       <React.Fragment>
-        <Grid item xs={12} md={4}>
-          <Paper className={classes.paper}>item</Paper>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper className={classes.paper}>item</Paper>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper className={classes.paper}>item</Paper>
-        </Grid>
+        {items.map(item => {
+          return <Grid item xs={12} md={3} key={item.id}>
+            <ItemMediaCard  item={item}/>
+          </Grid>
+        })
+        }
       </React.Fragment>
     );
   }
@@ -39,13 +40,16 @@ export default function CardItem() {
         <Grid container item xs={12} spacing={3}>
           <FormRow />
         </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <FormRow />
-        </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <FormRow />
-        </Grid>
       </Grid>
     </div>
   );
 }
+
+const mapStateToProps = (state, ownProps) => {
+  const { items } = state;
+  console.log(items)
+  return {items};
+}
+
+export default connect(mapStateToProps, {
+})(CardItem);

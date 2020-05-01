@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import clsx from 'clsx';
+
+import React, {useState, useEffect} from 'react';
 import {Button, makeStyles } from '@material-ui/core';
 
 import { CardItem, CardForm } from '../../components';
 import { Divider } from '@material-ui/core';
-import clsx from 'clsx';
+import {connect} from 'react-redux';
+
 
 const drawerWidth = 240;
-
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -37,16 +39,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Main({open}) {
+export default function Main({open, items}) {
     const classes = useStyles();
     const [isOpen, setisOpen] = useState(false)
 
-      const handleClickOpen = () => {
-          setisOpen(true)
-      }
-      const handleClickClose = () => {
-          setisOpen(false)
-      }
+    const handleClickOpen = () => {
+        setisOpen(true)
+    }
+    const handleClickClose = () => {
+        setisOpen(false)
+    }
+
+    useEffect(() => {
+      console.log(items, 'prop itmes');
+    }, [items])
 
     return (
       <main
@@ -57,13 +63,18 @@ export default function Main({open}) {
         <div className={classes.drawerHeader} />
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>Add</Button>
         <Divider />
-        
-        <CardItem />
-        <CardItem />
-        <CardItem />
-      
+        <CardItem/>
         <CardForm isOpen={isOpen} action={handleClickClose}/> 
-
       </main>
     )
 }
+
+// const mapStateToProps = (state, ownProps ) => {
+//   const { items } = state;
+//   return {items};
+// }
+
+// export default connect(
+//   mapStateToProps, {
+
+//   })(Main);

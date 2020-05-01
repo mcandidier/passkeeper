@@ -86,8 +86,6 @@ export default function Nav({open, handleDrawerOpen}) {
                 className={clsx(classes.appBar, {
                 [classes.appBarShift]: open,
                 })}>
-            {/* <AppBar position="fixed" className={classes.appBar} color="primary" classes={{ root: classes.AppBar}}> */}
-
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -100,14 +98,13 @@ export default function Nav({open, handleDrawerOpen}) {
                     </IconButton>
 
                     <Typography variant="h6" noWrap>
-
                         <IconButton aria-label="user" className={classes.user} classes={{ root: classes.iconRoot }} aria-describedby={id} onClick={handleClick}> 
                             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                         </IconButton>
 
                         <Popper id={id} open={active} anchorEl={anchorEl} transition placement="bottom-end">
                         {({ TransitionProps}) => (
-                            <Fade {...TransitionProps} timeout={350}>
+                            <Fade {...TransitionProps} timeout={150}>
 
                             <div className={classes.menuRoot}>
                                 <List component="nav" aria-label="main mailbox folders">

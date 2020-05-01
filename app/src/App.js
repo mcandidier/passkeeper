@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import './App.css';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import {Sidebar, Nav, Main} from './components';
+import { getItems } from './redux/actions';
 
-import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
 
 const styles = makeStyles(()=> ({
   root: {
@@ -12,18 +15,21 @@ const styles = makeStyles(()=> ({
 }));
 
 function App() {
-  const classes = styles();
   
-  //todo: set open as global state.
+  const classes = styles();
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getItems());
+  }, []);
+
+  //todo: set open as global state.
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
-    console.log('handle open')
     setOpen(true);
   };
   const handleDrawerClose = () => {
-    console.log('handle close')
     setOpen(false);
   };
 

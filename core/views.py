@@ -10,18 +10,17 @@ from .utils import encrypt_password, create_item_icon, ItemMixins
 from .serializers import ItemSerializer, UserSerializer
 from .permissions import IsOwner
 
-from django.conf import settings
 
 class ItemViewSet(ItemMixins, viewsets.ViewSet):
     """ Item viewset for lists of items, and create item.
     """
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # permission_classes = [IsAuthenticated]
     serializer_class = ItemSerializer
 
     def lists(self, *args, **kwargs):
-        print(settings.STATIC_URL, 'rul')
-        items = Item.objects.filter(user=self.request.user)
+        items = Item.objects.all() 
+        #items = items.filter(user=self.request.user)
         serializer = self.serializer_class(items, many=True)
         return Response(serializer.data, status=200)
 
@@ -34,7 +33,6 @@ class ItemViewSet(ItemMixins, viewsets.ViewSet):
 
 
 class ItemChangePasswordView(ItemMixins, viewsets.ViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, *args, **kwargs):
