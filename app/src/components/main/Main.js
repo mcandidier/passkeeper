@@ -68,13 +68,3 @@ export default function Main({open, items}) {
       </main>
     )
 }
-
-// const mapStateToProps = (state, ownProps ) => {
-//   const { items } = state;
-//   return {items};
-// }
-
-// export default connect(
-//   mapStateToProps, {
-
-//   })(Main);

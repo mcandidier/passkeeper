@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Item
@@ -14,13 +14,12 @@ from .permissions import IsOwner
 class ItemViewSet(ItemMixins, viewsets.ViewSet):
     """ Item viewset for lists of items, and create item.
     """
-    # authentication_classes = [SessionAuthentication, BasicAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_class = ItemSerializer
 
     def lists(self, *args, **kwargs):
-        items = Item.objects.all() 
-        #items = items.filter(user=self.request.user)
+        items = Item.objects.filter(user=self.request.user)
         serializer = self.serializer_class(items, many=True)
         return Response(serializer.data, status=200)
 

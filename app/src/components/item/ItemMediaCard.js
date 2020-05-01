@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -19,8 +19,13 @@ const useStyles = makeStyles({
   },
 });
 
+
 export default function ItemMediaCard({item}) {
   const classes = useStyles();
+  const [show, setShow] = useState(false);
+  const toggleShow = () => {
+    setShow(!show)
+  }
 
   return (
     <Card className={classes.root}>
@@ -34,14 +39,18 @@ export default function ItemMediaCard({item}) {
           <Typography gutterBottom variant="h6" component="p">
             {item.name}
           </Typography>
+          { show ?
           <Typography variant="body2" color="textSecondary" component="p">
             {item.password}
           </Typography>
+          :
+          ''
+          }
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Update
+        <Button size="small" color="primary" onClick={() => toggleShow()}>
+          {show? 'Hide': 'Show'} password
         </Button>
         <Button size="small" color="secondary">
           Remove

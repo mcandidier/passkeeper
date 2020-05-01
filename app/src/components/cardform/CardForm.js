@@ -2,7 +2,8 @@ import React from 'react';
 import { Box, Button, TextField, Dialog, DialogContent, DialogContentText, DialogTitle, makeStyles } from '@material-ui/core/';
 
 import { useForm  } from 'react-hook-form';  
-
+import { AddItem } from '../../redux/actions';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
@@ -12,13 +13,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CardForm({ isOpen, action }) {
+const CardForm = ({ isOpen, action, AddItem }) => {
   const classes = useStyles();
 
   const { register, handleSubmit, errors, reset } = useForm();
+  
   const onSubmit = (data, e ) => {
     e.preventDefault();
-    console.log(data);
+    AddItem(data, handleClose);
   };
 
   const handleClose = (e) => {
@@ -84,3 +86,9 @@ export default function CardForm({ isOpen, action }) {
     </div>
   );
 }
+
+export default connect(
+  null, {
+    AddItem
+  }
+)(CardForm);
