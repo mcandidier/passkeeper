@@ -10,6 +10,11 @@ import Typography from '@material-ui/core/Typography';
 
 import img from '../../img/contemplative-reptile.jpg';
 
+import { ApiRemoveItem } from '../../redux/actions';
+
+import { connect } from 'react-redux';
+
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 250,
@@ -20,13 +25,13 @@ const useStyles = makeStyles({
 });
 
 
-export default function ItemMediaCard({item}) {
+const  ItemMediaCard = ({item, ApiRemoveItem}) => {
   const classes = useStyles();
   const [show, setShow] = useState(false);
   const toggleShow = () => {
     setShow(!show);
   }
-
+  
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -52,10 +57,14 @@ export default function ItemMediaCard({item}) {
         <Button size="small" color="primary" onClick={() => toggleShow()}>
           {show? 'Hide': 'Show'} password
         </Button>
-        <Button size="small" color="secondary">
+        <Button size="small" color="secondary" onClick={() => ApiRemoveItem(item.id)}>
           Remove
         </Button>
       </CardActions>
     </Card>
   );
 }
+
+export default connect(null, {
+  ApiRemoveItem
+})(ItemMediaCard);

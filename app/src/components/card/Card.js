@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import { ItemMediaCard } from '../../components';
@@ -47,9 +46,9 @@ export function CardItem({items}) {
 
 const mapStateToProps = (state, ownProps) => {
   const { items } = state;
-  console.log(items)
   return {items};
 }
 
 export default connect(mapStateToProps, {
+  
 })(CardItem);

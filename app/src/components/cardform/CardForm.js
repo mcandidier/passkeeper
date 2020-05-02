@@ -85,7 +85,6 @@ const CardForm = ({ isOpen, action, AddItem }) => {
                     <Button onClick={handleClose} color="secondary" variant="text">
                         Cancel
                     </Button>
-
                     <Button color="primary" type="submit" variant="text">
                         Subscribe 
                         {loading && <CircularProgress size={14} />}

@@ -12,8 +12,14 @@ export const insertItem = (item) => {
         type: 'ADD_ITEM',
         payload: {item}
     }
-}
 
+}
+export const removeItem = (id) => {
+    return {
+        type: 'REMOVE_ITEM',
+        payload: {id}
+    }
+}
 
 export const getItems = () => {
     return (dispatch) => {
@@ -32,6 +38,16 @@ export const AddItem = (data, handleCallback) => {
                 console.log(res.data, 'data')
                 dispatch(insertItem(res.data));
                 handleCallback();
+            });
+    }
+}
+
+
+export const ApiRemoveItem = (id) => {
+    return (dispatch) => {
+        return API.delete(`items/${id}/`)
+            .then( (res) => {
+                dispatch(removeItem(id));
             });
     }
 }

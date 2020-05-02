@@ -19,7 +19,7 @@ class ItemViewSet(ItemMixins, viewsets.ViewSet):
     serializer_class = ItemSerializer
 
     def lists(self, *args, **kwargs):
-        items = Item.objects.filter(user=self.request.user)
+        items = Item.objects.filter(user=self.request.user, archive=False)
         serializer = self.serializer_class(items, many=True)
         return Response(serializer.data, status=200)
 
@@ -47,3 +47,9 @@ class ItemChangePasswordView(ItemMixins, viewsets.ViewSet):
             obj.save()
             return Response({'updated': True}, status=200)
         return Response({'detail': 'password is required.'}, status=400)
+    
+    def delete(self, *args, **kwargs):
+        obj = self.get_object()
+        obj.archive = True
+        obj.save()
+        return Response(status=204)

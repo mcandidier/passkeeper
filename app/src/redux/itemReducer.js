@@ -8,6 +8,10 @@ const itemReducer = (state=[], action) => {
             return action.items
         case 'ADD_ITEM':
             return [action.payload.item, ...state]
+        case 'REMOVE_ITEM':
+            return state.filter(item => {
+                return item.id !== action.payload.id;
+            });
         default:
             return state;
     }

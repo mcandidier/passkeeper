@@ -15,6 +15,7 @@ class Item(models.Model):
     url = models.URLField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     icon = models.ImageField(null=True, blank=True, upload_to='uploads/')
+    archive = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.name}'
