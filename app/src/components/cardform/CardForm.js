@@ -1,5 +1,15 @@
-import React from 'react';
-import { Box, Button, TextField, Dialog, DialogContent, DialogContentText, DialogTitle, makeStyles } from '@material-ui/core/';
+import React, { useState } from 'react';
+import { 
+  Box,
+  Button,
+  TextField,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  makeStyles,
+  CircularProgress
+} from '@material-ui/core/';
 
 import { useForm  } from 'react-hook-form';  
 import { AddItem } from '../../redux/actions';
@@ -12,20 +22,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 const CardForm = ({ isOpen, action, AddItem }) => {
   const classes = useStyles();
-
+  const [ loading, setLoading ] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm();
   
   const onSubmit = (data, e ) => {
     e.preventDefault();
+    setLoading(true);
     AddItem(data, handleClose);
   };
 
   const handleClose = (e) => {
       action();
       reset()
+      setLoading(false);
   };
 
   return (
@@ -71,12 +82,13 @@ const CardForm = ({ isOpen, action, AddItem }) => {
               />
             <Box  display="flex" component="div" flexDirection="row-reverse">
                 <Box justifyContent="flex-end" component="div">
-                    <Button onClick={handleClose} color="secondary">
+                    <Button onClick={handleClose} color="secondary" variant="text">
                         Cancel
                     </Button>
 
-                    <Button color="primary" type="submit">
-                        Subscribe
+                    <Button color="primary" type="submit" variant="text">
+                        Subscribe 
+                        {loading && <CircularProgress size={14} />}
                     </Button>
                 </Box>
             </Box>
@@ -86,7 +98,6 @@ const CardForm = ({ isOpen, action, AddItem }) => {
     </div>
   );
 }
-
 export default connect(
   null, {
     AddItem

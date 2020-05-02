@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     maxWidth: 250,
   },
   media: {
-    height: 120,
+    height: 80,
   },
 });
 
@@ -24,7 +24,7 @@ export default function ItemMediaCard({item}) {
   const classes = useStyles();
   const [show, setShow] = useState(false);
   const toggleShow = () => {
-    setShow(!show)
+    setShow(!show);
   }
 
   return (
@@ -36,7 +36,7 @@ export default function ItemMediaCard({item}) {
           title="Contemplative Reptile"
         />
         <CardContent>
-          <Typography gutterBottom variant="h6" component="p">
+          <Typography gutterBottom  variant="body2" component="span">
             {item.name}
           </Typography>
           { show ?

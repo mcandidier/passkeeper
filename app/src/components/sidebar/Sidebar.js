@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Sidebar({open, handleDrawerClose}) {
   const classes = useStyles();
   const theme = useTheme();
-
+  
   return (
     <Drawer
         className={classes.drawer}
