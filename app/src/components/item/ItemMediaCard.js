@@ -46,7 +46,7 @@ const  ItemMediaCard = ({item, ApiRemoveItem}) => {
           </Typography>
           { show ?
           <Typography variant="body2" color="textSecondary" component="p">
-            {item.password}
+            {item.raw_password}
           </Typography>
           :
           ''
