@@ -23,8 +23,11 @@ def encrypt_password(item):
 
 def decrypt_password(item):
     password = item.password.encode()
-    f = _get_fernent(item)
-    return f.decrypt(password)
+    try:
+        f = _get_fernent(item)
+        return f.decrypt(password)
+    except Exception as exc:
+        print(exc)
 
 def create_item_icon(item):
     icons = favicon.get(item.url)
@@ -32,7 +35,7 @@ def create_item_icon(item):
     temp = NamedTemporaryFile(delete=True)
     temp.write(urlopen(icon.url).read())
     temp.flush()
-    item.icon.save(f"icon-{item.id}", File(temp))
+    item.icon.save(f"icon-{item.id}.png", File(temp))
     item.save()
 
 class ItemMixins:

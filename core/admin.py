@@ -14,4 +14,6 @@ class ItemAdmin(admin.ModelAdmin):
 
     def raw_password(self, instance):
         password = decrypt_password(instance)
-        return password.decode()
+        if password:
+            return password.decode()
+        return None

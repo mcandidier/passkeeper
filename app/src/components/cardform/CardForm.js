@@ -43,12 +43,12 @@ const CardForm = ({ isOpen, action, AddItem }) => {
     <div>
       <Dialog classes={{paper: classes.dialogPaper} } disableBackdropClick={true}
       open={isOpen} onClose={handleClose} onExit={handleClose}>
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">{}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
+          {/* <DialogContentText> */}
+            {/* To subscribe to this website, please enter your email address here. We will send updates
             occasionally.
-          </DialogContentText>
+          </DialogContentText> */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               autoFocus
